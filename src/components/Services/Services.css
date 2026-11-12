@@ -1,0 +1,71 @@
+.services {
+  padding: 1.5rem;
+}
+
+/* * Respaldo con flexbox para navegadores sin CSS Grid; más abajo se mejora con @supports */
+.services__grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.service {
+  -webkit-box-flex: 1;
+  flex: 1 1 15rem;
+  margin: 0.75rem;
+  padding: 1rem;
+  border: 0.3rem solid var(--color-ink);
+  border-radius: 0.8rem;
+  box-shadow: 6px 6px 0 var(--color-ink);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.service--pink   { background-color: var(--color-pink); }
+.service--purple { background-color: var(--color-purple); }
+.service--green  { background-color: var(--color-green); }
+
+.service:hover {
+  -webkit-transform: translate(-3px, -3px) rotate(-0.6deg);
+  transform: translate(-3px, -3px) rotate(-0.6deg);
+  box-shadow: 10px 10px 0 var(--color-ink);
+}
+
+.service__title {
+  margin: 0 0 0.4rem;
+  font-size: 1.6rem;
+}
+
+.service__text {
+  margin: 0 0 0.6rem;
+}
+
+/* * Las tarjetas aparecen escalonadas al revelarse la sección */
+.reveal--visible .service {
+  animation: pop-in 0.55s cubic-bezier(0.3, 1.4, 0.5, 1) backwards;
+  animation-delay: calc(0.2s + var(--i, 0) * 0.09s);
+}
+
+@supports (display: grid) {
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 1.5rem;
+    margin: 0;
+  }
+
+  .service {
+    margin: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .services {
+    padding: 1rem;
+  }
+
+  .service {
+    box-shadow: 4px 4px 0 var(--color-ink);
+  }
+}

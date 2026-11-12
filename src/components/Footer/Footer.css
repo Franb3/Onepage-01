@@ -1,0 +1,15 @@
+.footer {
+  margin-bottom: 6rem; /* * deja espacio para que el botón flotante de WhatsApp no tape el pie */
+  text-align: center;
+}
+
+.footer__brand {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.footer__copy {
+  margin: 0.25rem 0 0.5rem;
+  font-family: var(--font-ui);
+  font-size: 13px;
+}

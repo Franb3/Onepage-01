@@ -1,0 +1,197 @@
+/* * Header: tarjeta con el logo y el menú.
+   * Escritorio: logo arriba y menú en fila debajo.
+   * Móvil (<= 640px): logo + botón hamburguesa, menú desplegable. */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.header__top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.header__brand {
+  margin: 0;
+  font-size: 2.4rem;
+  white-space: nowrap; /* ! el logo nunca se parte en dos líneas */
+}
+
+/* * Animación de carga: cada letra cae y rebota (solo ocurre una vez) */
+.header__letter {
+  display: inline-block;
+  animation: letter-drop 0.7s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+
+@keyframes letter-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-1.4em) rotate(-14deg);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* * Menú (escritorio) */
+.header__nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.header__nav li {
+  margin: 0.25rem 0.8rem; /* * margen en vez de `gap`: compatible con móviles viejos */
+}
+
+.header__nav a {
+  position: relative;
+  display: inline-block;
+  padding: 0.2rem 0;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+/* * Subrayado que se dibuja de izquierda a derecha al pasar el cursor */
+.header__nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0.2rem;
+  background-color: var(--color-purple);
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transform-origin: left;
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.header__nav a:hover::after,
+.header__nav a:focus::after {
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+/* * Botón hamburguesa: oculto en escritorio */
+.header__toggle {
+  display: none;
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  margin-left: auto;
+  padding: 0;
+  cursor: pointer;
+  background-color: var(--color-pink);
+  border: 2px solid var(--color-ink);
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 var(--color-ink);
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.header__toggle:active {
+  box-shadow: 0 0 0 var(--color-ink);
+  transform: translate(3px, 3px);
+}
+
+.header__bar {
+  position: absolute;
+  left: 0.7rem;
+  width: 1.4rem;
+  height: 0.2rem;
+  background-color: var(--color-ink);
+  transition:
+    transform 0.3s ease,
+    opacity 0.2s ease;
+}
+
+.header__bar:nth-child(1) {
+  top: 0.85rem;
+}
+.header__bar:nth-child(2) {
+  top: 1.3rem;
+}
+.header__bar:nth-child(3) {
+  top: 1.75rem;
+}
+
+/* * Hamburguesa -> X cuando el menú está abierto */
+.header__toggle[aria-expanded="true"] .header__bar:nth-child(1) {
+  -webkit-transform: translateY(0.45rem) rotate(45deg);
+  transform: translateY(0.45rem) rotate(45deg);
+}
+.header__toggle[aria-expanded="true"] .header__bar:nth-child(2) {
+  opacity: 0;
+}
+.header__toggle[aria-expanded="true"] .header__bar:nth-child(3) {
+  -webkit-transform: translateY(-0.45rem) rotate(-45deg);
+  transform: translateY(-0.45rem) rotate(-45deg);
+}
+
+/* * Móvil */
+@media (max-width: 640px) {
+  .header {
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .header__top {
+    justify-content: space-between;
+  }
+
+  .header__brand {
+    font-size: 2rem;
+  }
+
+  .header__toggle {
+    display: block;
+  }
+
+  /* ! El menú cerrado usa visibility:hidden (además de max-height:0) para que
+     ! sus enlaces no se puedan enfocar con el teclado mientras están ocultos. */
+  .header__nav {
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition:
+      max-height 0.35s ease,
+      visibility 0s linear 0.35s;
+  }
+
+  .header__nav.is-open {
+    max-height: 22rem;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  .header__nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header__nav li {
+    margin: 0.3rem 0;
+  }
+}
+
+/* * Pantallas muy angostas (≈ 320px): logo un poco más pequeño para que quepa junto al botón */
+@media (max-width: 380px) {
+  .header__brand {
+    font-size: 1.5rem;
+  }
+}

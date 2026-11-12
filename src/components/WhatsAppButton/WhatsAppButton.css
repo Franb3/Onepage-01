@@ -1,0 +1,99 @@
+.whatsapp-button {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  right: calc(20px + env(safe-area-inset-right, 0px));
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  padding: 10px 18px;
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-ink);
+  text-decoration: none;
+  background-color: var(--color-green);
+  border: 0.2rem solid var(--color-ink);
+  border-radius: 1rem;
+  box-shadow: 4px 4px 0 var(--color-ink);
+  /* * entra desde abajo 1.5s después de cargar la página */
+  animation: wa-enter 0.6s cubic-bezier(0.3, 1.4, 0.5, 1) 1.5s backwards;
+  transition:
+    background-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.whatsapp-button::before {
+  /* * Anillo que pulsa para llamar la atención sin molestar */
+  content: "";
+  position: absolute;
+  top: -0.2rem;
+  right: -0.2rem;
+  bottom: -0.2rem;
+  left: -0.2rem;
+  border: 0.2rem solid var(--color-green);
+  border-radius: 1.2rem;
+  pointer-events: none;
+  animation: wa-pulse 2.4s ease-out infinite;
+}
+
+.whatsapp-button:hover {
+  background-color: var(--color-pink);
+  box-shadow: 2px 2px 0 var(--color-ink);
+  -webkit-transform: translateY(-2px);
+  transform: translateY(-2px);
+}
+
+.whatsapp-button:active {
+  box-shadow: 0 0 0 var(--color-ink);
+  -webkit-transform: translate(4px, 4px);
+  transform: translate(4px, 4px);
+}
+
+.whatsapp-button__icon {
+  flex: 0 0 auto;
+  margin-right: 8px;
+}
+
+@keyframes wa-enter {
+  from {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes wa-pulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.3, 1.6);
+  }
+}
+
+/* * Móvil: solo el ícono, para no tapar contenido */
+@media (max-width: 480px) {
+  .whatsapp-button {
+    padding: 12px;
+  }
+
+  .whatsapp-button__icon {
+    margin-right: 0;
+  }
+
+  .whatsapp-button__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+}

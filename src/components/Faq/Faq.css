@@ -1,0 +1,119 @@
+.faq {
+  padding: 1.5rem;
+}
+
+.faq__list {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.faq__item {
+  margin-bottom: 1rem;
+  background-color: var(--color-surface);
+  border: 0.3rem solid var(--color-ink);
+  border-radius: 0.8rem;
+  box-shadow: 5px 5px 0 var(--color-purple);
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.faq__item.is-open {
+  background-color: var(--color-green);
+  box-shadow: 8px 8px 0 var(--color-ink);
+}
+
+.faq__heading {
+  margin: 0;
+  font-size: inherit;
+}
+
+.faq__question {
+  display: -webkit-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font: inherit;
+  font-size: 1.3rem;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* * Icono "+" dibujado con CSS; al abrir, la barra vertical se aplana y queda "−" */
+.faq__icon {
+  position: relative;
+  flex: 0 0 1.4rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-left: 1rem;
+}
+
+.faq__icon::before,
+.faq__icon::after {
+  content: "";
+  position: absolute;
+  background-color: var(--color-ink);
+  transition: transform 0.3s ease;
+}
+
+.faq__icon::before {
+  /* * barra horizontal */
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 0.25rem;
+  margin-top: -0.125rem;
+}
+
+.faq__icon::after {
+  /* * barra vertical */
+  top: 0;
+  left: 50%;
+  width: 0.25rem;
+  height: 100%;
+  margin-left: -0.125rem;
+}
+
+.faq__item.is-open .faq__icon::after {
+  -webkit-transform: scaleY(0);
+  transform: scaleY(0);
+}
+
+/* * Respuesta: se abre animando max-height.
+   ! visibility:hidden mientras está cerrada: el texto oculto no se lee ni se enfoca. */
+.faq__answer {
+  max-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition:
+    max-height 0.4s ease,
+    visibility 0s linear 0.4s;
+}
+
+.faq__item.is-open .faq__answer {
+  max-height: 24rem;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.faq__answer p {
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+
+@media (max-width: 600px) {
+  .faq {
+    padding: 1rem;
+  }
+
+  .faq__question {
+    font-size: 1.15rem;
+  }
+}

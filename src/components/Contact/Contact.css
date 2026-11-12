@@ -1,0 +1,185 @@
+.contact {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.contact__intro {
+  max-width: 34rem;
+  margin: 0 auto 1.5rem;
+}
+
+/* * Caja con formulario + mapa */
+.contact__content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1rem;
+  text-align: left;
+  background-color: var(--color-surface);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-big);
+}
+
+.contact__form,
+.contact__map {
+  flex: 1 1 18rem;
+  min-width: 0;
+  margin: 0.75rem;
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact__field {
+  display: block;
+  margin-bottom: 0.9rem;
+}
+
+.contact__label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.contact__field input,
+.contact__field select,
+.contact__field textarea {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  font-family: var(--font-ui);
+  font-size: 16px; /* * 16px evita el zoom automático de iOS al enfocar el campo */
+  color: var(--color-ink);
+  background-color: var(--color-surface);
+  border: 3px solid var(--color-ink);
+  border-radius: 5px;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.contact__field select {
+  /* * flecha propia porque quitamos la nativa con appearance: none */
+  padding-right: 2.2rem;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #000 50%),
+    linear-gradient(135deg, #000 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) 55%,
+    calc(100% - 14px) 55%;
+  background-size:
+    6px 6px,
+    6px 6px;
+  background-repeat: no-repeat;
+}
+
+.contact__field textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.contact__field input:focus,
+.contact__field select:focus,
+.contact__field textarea:focus {
+  outline: none;
+  background-color: #fff7fe;
+  box-shadow: 4px 4px 0 var(--color-purple);
+}
+
+.contact__field textarea[aria-invalid="true"] {
+  border-color: #c4002f;
+  animation: field-shake 0.4s ease;
+}
+
+@keyframes field-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-6px);
+  }
+  75% {
+    transform: translateX(6px);
+  }
+}
+
+.contact__submit {
+  align-self: flex-start;
+  margin-left: 0;
+  font-size: 16px;
+}
+
+/* * Al enviar, el botón cambia de color con un pequeño "latido" */
+.contact__submit.is-sent {
+  background-color: var(--color-green);
+  animation: pop-in 0.4s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+
+.contact__status {
+  min-height: 1.4em; /* * reserva el espacio para que el layout no salte */
+  margin: 0.5rem 0 0;
+  font-size: 18px;
+}
+
+.contact__status--error {
+  color: #c4002f;
+  animation: reveal-up 0.3s ease both;
+}
+
+.contact__status--sent {
+  animation: reveal-up 0.4s ease both;
+}
+
+.contact__status a {
+  color: var(--color-ink);
+  text-decoration: underline;
+}
+
+.contact__hint {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* * Mapa */
+.contact__map {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.contact__map h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.4rem;
+}
+
+.contact__map iframe {
+  width: 100%;
+  height: 18rem;
+  border: 2px solid var(--color-ink);
+  border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+  .contact {
+    padding: 1rem;
+  }
+
+  .contact__content {
+    padding: 0.25rem;
+  }
+
+  .contact__submit {
+    align-self: stretch;
+  }
+}
